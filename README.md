@@ -10,3 +10,7 @@ Open `index.html` in a browser, or run `python -m http.server 8080` from this fo
 - The music panel currently links to Spotify; add your preferred playlist URL.
 - Social profiles and WhatsApp links are configured for Yasam.
 - AI partner cards link to Gemini, ChatGPT, and Claude.
+
+
+## Skill proficiency bars
+The skill percentage values in `index.html` are sample self-assessments. Edit both the visible percentage and each bar's `--level` value to keep them in sync with your actual experience.
