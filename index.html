@@ -1,99 +1,95 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080b18">
-  <meta name="description" content="Yasam — web developer, creator, and AI enthusiast.">
-  <title>Yasam — Profile</title>
+  <meta name="theme-color" content="#f7f8fb">
+  <title>Yasam — Portfolio</title>
+  <meta name="description" content="Portfolio pribadi Yasam, web developer dan creator.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="blob blob-a"></div><div class="blob blob-b"></div>
-  <header class="topbar wrap">
-    <a class="brand" href="#home"><span class="brand-symbol">Y</span> Yasam</a>
-    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-    <nav id="nav"><a href="#home">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#partners">AI Partners</a><a href="#contact">Contact</a></nav>
-    <a class="top-wa" href="https://wa.me/6281519986005" target="_blank" rel="noopener">Say hi ↗</a>
+  <div class="ambient ambient-blue"></div><div class="ambient ambient-purple"></div><div class="ambient ambient-cyan"></div>
+  <header class="topbar">
+    <a class="brand" href="#home"><strong>Yasam</strong><small>PORTFOLIO</small></a>
+    <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav id="nav" aria-label="Navigasi utama">
+      <a href="#about">About</a><a href="#skills">Skills</a><a href="#partners">Partners</a><a href="#music">Music</a><a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <main class="wrap">
+  <main class="content">
     <section class="hero" id="home">
-      <div class="avatar-wrap"><div class="avatar"><span>Y</span></div><span class="online"></span></div>
-      <div class="hero-text" id="about">
-        <p class="kicker">👋 HEY THERE, I'M</p>
-        <h1>Yasam<span>.</span></h1>
-        <h2>Web Developer <b>|</b> Creator <b>|</b> AI Enthusiast</h2>
-        <p class="bio">Suka ngoding, eksplor teknologi, dengerin musik, dan selalu penasaran sama hal baru.</p>
-        <div class="socials" aria-label="Social media">
-          <a class="social instagram" href="https://instagram.com/yasam_dev" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
-          <a class="social github" href="https://github.com/yasamsen" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
-          <a class="social tiktok" href="https://tiktok.com/@yasam_creator" target="_blank" rel="noopener" aria-label="TikTok">♪</a>
-          <a class="social youtube" href="https://youtube.com/@yasam" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
-          <a class="social telegram" href="https://t.me/YasamOffc" target="_blank" rel="noopener" aria-label="Telegram">➤</a>
-        </div>
-        <a class="button wa-button" href="https://wa.me/6281519986005?text=Halo%20Yasam!" target="_blank" rel="noopener">◉ Chat WhatsApp <span>↗</span></a>
+      <div class="avatar-wrap">
+        <div class="avatar" aria-label="Avatar Yasam"><span>Y</span></div>
+        <span class="available"><i></i> Available</span>
       </div>
-      <div class="hero-note">Small steps,<br><em>big dreams.</em><span>〰〰〰</span></div>
+      <h1>Yasam</h1>
+      <p class="handle">@yasam_dev</p>
+      <div class="role">Pelajar &amp; Web Developer Pemula</div>
+      <p class="bio" id="about">Suka ngulik teknologi, bikin sesuatu dengan kode, dan terus belajar hal baru.</p>
     </section>
 
-    <section class="feature-grid">
-      <article class="panel music-panel">
-        <div class="panel-title"><span class="title-icon music-icon">♫</span><div><h2>Now Playing</h2><p>My current vibe</p></div><a class="spotify" href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify ↗</a></div>
-        <div class="track">
-          <div class="album-art">♫</div><div class="track-info"><h3>Chill Soundtrack</h3><p>Press play and enjoy the vibe.</p><div class="equalizer"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <section class="section" id="skills">
+      <h2 class="section-title">My Skills</h2>
+      <div class="skills-list">
+        <div class="skill"><span class="skill-icon html">5</span><strong>HTML</strong><div class="bar"><i style="--value:90%"></i></div><span class="percent">90%</span></div>
+        <div class="skill"><span class="skill-icon css">◆</span><strong>CSS</strong><div class="bar"><i style="--value:85%"></i></div><span class="percent">85%</span></div>
+        <div class="skill"><span class="skill-icon js">JS</span><strong>JavaScript</strong><div class="bar"><i style="--value:70%"></i></div><span class="percent">70%</span></div>
+        <div class="skill"><span class="skill-icon node">◉</span><strong>Node.js &amp; APIs</strong><div class="bar"><i style="--value:72%"></i></div><span class="percent">72%</span></div>
+        <div class="skill"><span class="skill-icon git">G</span><strong>GitHub</strong><div class="bar"><i style="--value:75%"></i></div><span class="percent">75%</span></div>
+        <div class="skill"><span class="skill-icon ai">✦</span><strong>AI Tools</strong><div class="bar"><i style="--value:95%"></i></div><span class="percent">95%</span></div>
+      </div>
+      <p class="fine-print">Persentase ini perkiraan dan bisa kamu ubah sesuai kemampuanmu.</p>
+    </section>
+
+    <section class="section" id="partners">
+      <h2 class="section-title">My Partners</h2>
+      <div class="partners-list">
+        <a class="partner" href="https://claude.ai/" target="_blank" rel="noopener"><span class="partner-logo claude">✳</span><span class="partner-copy"><small>ANTHROPIC</small><strong>Claude AI</strong><em>Partner untuk coding dan problem solving</em></span><b>↗</b></a>
+        <a class="partner" href="https://chatgpt.com/" target="_blank" rel="noopener"><span class="partner-logo chatgpt">◎</span><span class="partner-copy"><small>OPENAI</small><strong>ChatGPT</strong><em>Teman brainstorming, belajar, dan coding</em></span><b>↗</b></a>
+        <a class="partner" href="https://gemini.google.com/" target="_blank" rel="noopener"><span class="partner-logo gemini">✦</span><span class="partner-copy"><small>GOOGLE</small><strong>Gemini</strong><em>Bantu riset, ide, dan analisis</em></span><b>↗</b></a>
+        <a class="partner" href="https://www.deepseek.com/" target="_blank" rel="noopener"><span class="partner-logo deepseek">◈</span><span class="partner-copy"><small>DEEPSEEK</small><strong>DeepSeek</strong><em>Asisten untuk coding dan reasoning</em></span><b>↗</b></a>
+      </div>
+    </section>
+
+    <section class="section" id="music">
+      <h2 class="section-title">Music</h2>
+      <div class="music-card">
+        <div class="now-playing">
+          <div class="cover">♫</div>
+          <div class="track-meta"><small>YASAM'S PLAYLIST</small><strong id="track-title">Chill Soundtrack</strong><span id="track-artist">Demo audio</span></div>
         </div>
-        <audio class="music-player" controls preload="none" aria-label="Play chill soundtrack">
+        <audio id="audio" controls preload="none">
           <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-          Your browser does not support audio playback.
+          Browser kamu tidak mendukung pemutar audio.
         </audio>
-        <a class="small-link" href="https://open.spotify.com/" target="_blank" rel="noopener">Open Spotify for more music ↗</a>
-      </article>
-
-      <article class="panel skills-panel" id="skills">
-        <div class="panel-title"><span class="title-icon skill-icon">✦</span><div><h2>My Skills</h2><p>Things I like building with</p></div></div>
-        <div class="skill-bars">
-          <div class="skill-row"><div class="skill-label"><span>HTML & CSS</span><strong>90%</strong></div><div class="skill-track"><span style="--level:90%"></span></div></div>
-          <div class="skill-row"><div class="skill-label"><span>JavaScript</span><strong>78%</strong></div><div class="skill-track"><span style="--level:78%"></span></div></div>
-          <div class="skill-row"><div class="skill-label"><span>Node.js & APIs</span><strong>72%</strong></div><div class="skill-track"><span style="--level:72%"></span></div></div>
-          <div class="skill-row"><div class="skill-label"><span>Git & GitHub</span><strong>75%</strong></div><div class="skill-track"><span style="--level:75%"></span></div></div>
-          <div class="skill-row"><div class="skill-label"><span>UI/UX Design</span><strong>68%</strong></div><div class="skill-track"><span style="--level:68%"></span></div></div>
+        <div class="playlist" aria-label="Daftar musik">
+          <button class="song active" data-title="Chill Soundtrack" data-artist="Demo audio"><span class="song-cover cover-one">♫</span><span><strong>Chill Soundtrack</strong><small>Demo audio</small></span><b>1</b></button>
+          <a class="song" href="https://open.spotify.com/" target="_blank" rel="noopener"><span class="song-cover cover-two">♪</span><span><strong>Explore on Spotify</strong><small>Buka playlist favoritmu</small></span><b>↗</b></a>
+          <a class="song" href="https://music.youtube.com/" target="_blank" rel="noopener"><span class="song-cover cover-three">▶</span><span><strong>YouTube Music</strong><small>Dengarkan lebih banyak musik</small></span><b>↗</b></a>
         </div>
-        <p class="skill-note">Skill levels are editable estimates — adjust them to match your real experience.</p>
-      </article>
-    </section>
-
-    <section class="panel partners-panel" id="partners">
-      <div class="panel-title"><span class="title-icon ai-icon">✧</span><div><h2>AI Partners</h2><p>My digital toolbox</p></div></div>
-      <div class="partner-grid">
-        <a class="partner gemini" href="https://gemini.google.com/" target="_blank" rel="noopener"><span class="partner-logo">✦</span><span><strong>Gemini</strong><small>Research & ideas</small></span><b>↗</b></a>
-        <a class="partner chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener"><span class="partner-logo">◎</span><span><strong>ChatGPT</strong><small>Writing & coding</small></span><b>↗</b></a>
-        <a class="partner claude" href="https://claude.ai/" target="_blank" rel="noopener"><span class="partner-logo">✳</span><span><strong>Claude</strong><small>Analysis & creativity</small></span><b>↗</b></a>
+        <p class="music-note">Pemutar ini memakai audio demo. Ganti sumber audio di <code>index.html</code> dengan file atau URL audio yang kamu punya hak untuk gunakan.</p>
       </div>
     </section>
 
-    <section class="bottom-grid" id="contact">
-      <article class="panel social-panel">
-        <div class="panel-title"><span class="title-icon social-icon">⌘</span><div><h2>Find Me Online</h2><p>Let's connect!</p></div></div>
-        <div class="contact-links">
-          <a href="https://instagram.com/yasam_dev" target="_blank" rel="noopener"><span class="mini-icon instagram">ig</span><span><strong>Instagram</strong><small>@yasam_dev</small></span><b>↗</b></a>
-          <a href="https://github.com/yasamsen" target="_blank" rel="noopener"><span class="mini-icon github">gh</span><span><strong>GitHub</strong><small>@yasamsen</small></span><b>↗</b></a>
-          <a href="https://tiktok.com/@yasam_creator" target="_blank" rel="noopener"><span class="mini-icon tiktok">♪</span><span><strong>TikTok</strong><small>@yasam_creator</small></span><b>↗</b></a>
-          <a href="https://youtube.com/@yasam" target="_blank" rel="noopener"><span class="mini-icon youtube">▶</span><span><strong>YouTube</strong><small>@yasam</small></span><b>↗</b></a>
-          <a href="https://t.me/YasamOffc" target="_blank" rel="noopener"><span class="mini-icon telegram">➤</span><span><strong>Telegram</strong><small>@YasamOffc</small></span><b>↗</b></a>
-        </div>
-      </article>
-      <article class="panel contact-panel">
-        <div class="contact-art">➤</div><p class="kicker">GOT AN IDEA?</p><h2>Let's make<br>something cool.</h2><p class="contact-sub">Open to ideas, collabs, and good conversations.</p>
-        <a class="button wa-button" href="https://wa.me/6281519986005?text=Halo%20Yasam!%20Mau%20ngobrol." target="_blank" rel="noopener">WhatsApp me <span>↗</span></a>
-        <p class="phone">+62 815-1998-6005</p>
-      </article>
+    <section class="section" id="contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-list">
+        <a href="https://github.com/yasamsen" target="_blank" rel="noopener"><span class="contact-icon">GH</span><span>GitHub</span><b>›</b></a>
+        <a href="https://t.me/YasamOffc" target="_blank" rel="noopener"><span class="contact-icon telegram">➤</span><span>Telegram</span><b>›</b></a>
+        <a href="https://instagram.com/yasam_dev" target="_blank" rel="noopener"><span class="contact-icon instagram">◎</span><span>Instagram</span><b>›</b></a>
+        <a href="https://tiktok.com/@yasam_creator" target="_blank" rel="noopener"><span class="contact-icon tiktok">♪</span><span>TikTok</span><b>›</b></a>
+        <a href="https://wa.me/6281519986005" target="_blank" rel="noopener"><span class="contact-icon whatsapp">◉</span><span>WhatsApp</span><b>›</b></a>
+        <a href="https://youtube.com/@yasam" target="_blank" rel="noopener"><span class="contact-icon youtube">▶</span><span>YouTube</span><b>›</b></a>
+      </div>
     </section>
   </main>
-  <footer class="wrap footer"><a class="brand" href="#home"><span class="brand-symbol">Y</span> Yasam</a><p>Made with curiosity 💜</p><span>© <span id="year"></span> Yasam</span></footer>
-  <a class="floating-wa" href="https://wa.me/6281519986005" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">◉</a>
+
+  <footer>Made with <span>♥</span> by Yasam © <b id="year"></b></footer>
+  <a class="floating-top" href="#home" aria-label="Kembali ke atas">⌃</a>
 </body>
 </html>
