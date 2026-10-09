@@ -1,16 +1,14 @@
-# Yasam Profile
+# Yasam Portfolio
 
-A simple, colorful, responsive profile page built with plain HTML, CSS, and vanilla JavaScript. No React, TSX, TypeScript, or build step.
+Portfolio pribadi responsif menggunakan HTML, CSS, dan JavaScript vanilla.
 
-## Run
-Open `index.html` in a browser, or run `python -m http.server 8080` from this folder and visit `http://localhost:8080`.
+## Cara menggunakan
+1. Ekstrak ZIP.
+2. Buka `index.html` di browser atau unggah seluruh isi folder ke hosting statis.
+3. Ubah data skill, bio, tautan sosial, dan sumber audio sesuai kebutuhan.
 
-## Customize
-- Replace the initial/avatar letter if you want to use a real photo.
-- The music panel currently links to Spotify; add your preferred playlist URL.
-- Social profiles and WhatsApp links are configured for Yasam.
-- AI partner cards link to Gemini, ChatGPT, and Claude.
+## Musik
+Pemutar menggunakan audio demo publik dari SoundHelix. Ganti URL di elemen `<source>` pada `index.html` dengan file/URL audio yang kamu punya hak untuk gunakan.
 
-
-## Skill proficiency bars
-The skill percentage values in `index.html` are sample self-assessments. Edit both the visible percentage and each bar's `--level` value to keep them in sync with your actual experience.
+## Kontak
+Tautan sosial ada di bagian `Contact` pada `index.html`.
