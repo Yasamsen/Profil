@@ -1,0 +1,124 @@
+name: Build Web2APK
+run-name: APK - ${{ inputs.app_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: "URL website yang dibungkus"
+        required: true
+        type: string
+      app_name:
+        description: "Nama aplikasi"
+        required: true
+        type: string
+      package_name:
+        description: "Android application ID"
+        required: true
+        type: string
+      theme_color:
+        description: "Warna HEX"
+        required: true
+        default: "#31e0bd"
+        type: string
+      camera:
+        description: "Tambahkan permission kamera ke manifest"
+        required: true
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+      location:
+        description: "Tambahkan permission lokasi ke manifest"
+        required: true
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+      files:
+        description: "Tambahkan permission media ke manifest"
+        required: true
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: web2apk-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate inputs
+        shell: bash
+        env:
+          SITE_URL: ${{ inputs.site_url }}
+          APP_NAME: ${{ inputs.app_name }}
+          PACKAGE_NAME: ${{ inputs.package_name }}
+          THEME_COLOR: ${{ inputs.theme_color }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os, re, urllib.parse
+          url=os.environ["SITE_URL"]
+          parsed=urllib.parse.urlparse(url)
+          if parsed.scheme not in ("http","https") or not parsed.hostname or parsed.username or parsed.password:
+              raise SystemExit("Invalid URL")
+          if len(os.environ["APP_NAME"].strip()) < 1 or len(os.environ["APP_NAME"]) > 40:
+              raise SystemExit("Invalid app name")
+          pkg=os.environ["PACKAGE_NAME"]
+          if len(pkg)>150 or not re.fullmatch(r"[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*){2,}",pkg):
+              raise SystemExit("Invalid Android package name")
+          if not re.fullmatch(r"#[0-9a-fA-F]{6}",os.environ["THEME_COLOR"]):
+              raise SystemExit("Invalid color")
+          PY
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Prepare Android project
+        shell: bash
+        env:
+          SITE_URL: ${{ inputs.site_url }}
+          APP_NAME: ${{ inputs.app_name }}
+          PACKAGE_NAME: ${{ inputs.package_name }}
+          THEME_COLOR: ${{ inputs.theme_color }}
+          CAMERA: ${{ inputs.camera }}
+          LOCATION: ${{ inputs.location }}
+          FILES: ${{ inputs.files }}
+        run: |
+          set -euo pipefail
+          python scripts/prepare_android.py
+      - name: Build debug APK
+        working-directory: android-project
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon --stacktrace assembleDebug
+
+      - name: Stage APK
+        shell: bash
+        run: |
+          mkdir -p output
+          cp android-project/app/build/outputs/apk/debug/app-debug.apk output/web2apk-debug.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web2apk-apk
+          path: output/web2apk-debug.apk
+          if-no-files-found: error
+          retention-days: 3

@@ -1,0 +1,9 @@
+{
+  "name": "web2apk-vercel-github-actions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Responsive Web2APK frontend on Vercel with APK builds on GitHub Actions",
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}
