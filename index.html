@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kirim ke WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#E9EEF3; --card:#FFFFFF; --ink:#14202B; --muted:#5B6B79;
+    --line:#C5D0DA; --accent:#0B7A6B; --accent-ink:#FFFFFF; --danger:#B3261E; --ok:#0B7A6B;
+    --drop:#F3F6F9;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0F171E; --card:#18232C; --ink:#E8EEF3; --muted:#93A3B1; --line:#2E3E4B;
+           --accent:#35C0AB; --accent-ink:#06251F; --danger:#FF8A80; --ok:#35C0AB; --drop:#121C24; }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    min-height:100vh; background:var(--bg); color:var(--ink);
+    font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    display:grid; place-items:center; padding:24px 16px;
+  }
+  main{width:100%; max-width:520px}
+  h1{font-size:clamp(2rem,7vw,2.75rem); line-height:1.05; font-weight:800; letter-spacing:-.03em; margin:0 0 10px}
+  .lead{margin:0 0 24px; color:var(--muted); line-height:1.55; max-width:42ch}
+  form{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; display:grid; gap:16px}
+  label{font-weight:700; font-size:.9rem; display:grid; gap:6px}
+  .opt{font-weight:400; color:var(--muted)}
+  input[type=text], textarea{
+    width:100%; font:inherit; color:var(--ink); background:var(--card);
+    border:1px solid var(--line); border-radius:8px; padding:11px 12px;
+  }
+  textarea{min-height:120px; resize:vertical; line-height:1.5}
+  input:focus-visible, textarea:focus-visible, button:focus-visible, .drop:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  .drop{
+    border:2px dashed var(--line); background:var(--drop); border-radius:10px;
+    padding:20px; text-align:center; cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .drop.over{border-color:var(--accent); background:color-mix(in srgb,var(--accent) 10%, var(--drop))}
+  .drop strong{display:block; margin-bottom:2px}
+  .drop small{color:var(--muted)}
+  .drop input{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none}
+  .preview{display:none; align-items:center; gap:12px; border:1px solid var(--line); border-radius:10px; padding:10px}
+  .preview.show{display:flex}
+  .preview img{width:56px; height:56px; object-fit:cover; border-radius:6px; background:var(--drop)}
+  .preview .ico{width:56px; height:56px; border-radius:6px; background:var(--drop); display:grid; place-items:center; font-weight:800; color:var(--muted); font-size:.8rem}
+  .preview .meta{min-width:0; flex:1}
+  .preview .name{font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .preview .size{color:var(--muted); font-size:.8rem}
+  .preview button{background:none; border:1px solid var(--line); color:var(--ink); border-radius:8px; padding:6px 10px; font:inherit; font-size:.85rem; cursor:pointer}
+  .send{
+    background:var(--accent); color:var(--accent-ink); border:0; border-radius:10px;
+    font:inherit; font-weight:700; padding:14px; cursor:pointer; font-size:1rem;
+  }
+  .send:disabled{opacity:.6; cursor:progress}
+  .status{min-height:1.4em; font-size:.92rem; font-weight:500}
+  .status.err{color:var(--danger)} .status.ok{color:var(--ok)}
+  .hp{position:absolute; left:-9999px; height:0; overflow:hidden}
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kirim pesan ke WhatsApp saya</h1>
+  <p class="lead">Tulis pesan atau lampirkan foto/dokumen. Langsung masuk ke WhatsApp pemilik situs, tanpa login.</p>
+
+  <form id="f" novalidate>
+    <label>Nama <span class="opt">(boleh kosong)</span>
+      <input type="text" name="nama" maxlength="60" autocomplete="name">
+    </label>
+
+    <label>Pesan
+      <textarea name="pesan" maxlength="3000" placeholder="Tulis pesan di sini…"></textarea>
+    </label>
+
+    <div>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Pilih file">
+        <strong>Pilih atau seret file ke sini</strong>
+        <small>Gambar, PDF, dokumen · maksimal 4 MB</small>
+        <input type="file" id="file" name="file">
+      </div>
+      <div class="preview" id="preview">
+        <div id="thumb"></div>
+        <div class="meta"><div class="name" id="fname"></div><div class="size" id="fsize"></div></div>
+        <button type="button" id="remove">Hapus</button>
+      </div>
+    </div>
+
+    <div class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+
+    <button class="send" id="send" type="submit">Kirim ke WhatsApp</button>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </form>
+</main>
+
+<script>
+(() => {
+  const MAX = 4 * 1024 * 1024;
+  const $ = (id) => document.getElementById(id);
+  const f = $("f"), drop = $("drop"), fileInput = $("file"), preview = $("preview"),
+        thumb = $("thumb"), fname = $("fname"), fsize = $("fsize"), statusEl = $("status"), send = $("send");
+  let chosen = null;
+
+  const fmt = (b) => b > 1048576 ? (b/1048576).toFixed(1)+" MB" : Math.max(1,Math.round(b/1024))+" KB";
+  const say = (t, cls="") => { statusEl.textContent = t; statusEl.className = "status " + cls; };
+
+  function setFile(file){
+    if (!file) return;
+    if (file.size > MAX){ say("File terlalu besar (" + fmt(file.size) + "). Maksimal 4 MB.", "err"); return; }
+    chosen = file; say("");
+    fname.textContent = file.name; fsize.textContent = fmt(file.size);
+    thumb.innerHTML = "";
+    if (file.type.startsWith("image/")){
+      const img = document.createElement("img"); img.alt = "";
+      img.src = URL.createObjectURL(file); thumb.appendChild(img);
+    } else {
+      const d = document.createElement("div"); d.className = "ico";
+      d.textContent = (file.name.split(".").pop() || "file").slice(0,4).toUpperCase(); thumb.appendChild(d);
+    }
+    preview.classList.add("show");
+  }
+  function clearFile(){ chosen = null; fileInput.value = ""; preview.classList.remove("show"); thumb.innerHTML = ""; }
+
+  drop.addEventListener("click", () => fileInput.click());
+  drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); fileInput.click(); } });
+  fileInput.addEventListener("change", () => setFile(fileInput.files[0]));
+  ["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", e => setFile(e.dataTransfer.files[0]));
+  $("remove").addEventListener("click", clearFile);
+
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const pesan = f.pesan.value.trim();
+    if (!pesan && !chosen){ say("Isi pesan atau pilih file dulu.", "err"); return; }
+
+    const fd = new FormData();
+    fd.append("nama", f.nama.value);
+    fd.append("pesan", pesan);
+    fd.append("website", f.website.value);
+    if (chosen) fd.append("file", chosen, chosen.name);
+
+    send.disabled = true; send.textContent = "Mengirim…"; say("");
+    try {
+      const r = await fetch("/api/send", { method: "POST", body: fd });
+      const data = await r.json().catch(() => ({}));
+      if (r.ok && data.ok){
+        say("Terkirim ke WhatsApp. Terima kasih!", "ok");
+        f.reset(); clearFile();
+      } else {
+        say(data.error || "Gagal mengirim. Coba lagi.", "err");
+      }
+    } catch {
+      say("Koneksi bermasalah. Coba lagi.", "err");
+    } finally {
+      send.disabled = false; send.textContent = "Kirim ke WhatsApp";
+    }
+  });
+})();
+</script>
+</body>
+</html>
