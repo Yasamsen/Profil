@@ -1,24 +1,51 @@
-# Kirim ke WhatsApp (Vercel)
+# Website Portofolio
 
-Pengunjung kirim teks / gambar / file lewat website -> masuk ke WhatsApp kamu. Pengunjung tidak perlu akun.
+Portofolio pribadi dengan frontend statis (HTML, CSS, JS terpisah) dan backend serverless di Vercel (`/api`).
 
-## 1. Siapkan Fonnte (gateway WhatsApp)
-1. Daftar di https://fonnte.com (gratis ada paket trial).
-2. Tambah device -> scan QR dengan WhatsApp nomor kamu (seperti WhatsApp Web).
-3. Salin **Token** device.
+## Fitur
+- Loader dengan delay, animasi muncul bertahap, dan efek ketik pada peran
+- Bar keahlian dengan persentase yang beranimasi
+- Kontak WhatsApp, GitHub, Instagram, TikTok, plus form pesan
+- Responsif (desktop, tablet, HP) dan menghormati pengaturan "reduce motion"
+- Backend: `/api/profile` (data diri) dan `/api/contact` (form kontak)
 
-## 2. Upload ke Vercel
-- Upload folder ini ke GitHub, lalu "Add New Project" di vercel.com dan pilih repo-nya.
-- Atau lewat terminal: `npm i -g vercel` lalu `vercel` di dalam folder ini.
+## Struktur
+```
+├── api/
+│   ├── profile.js      # DATA DIRI: edit di sini
+│   └── contact.js      # backend form kontak
+├── public/
+│   ├── index.html
+│   ├── css/style.css
+│   ├── js/main.js
+│   └── assets/         # taruh foto profil di sini
+├── package.json
+└── README.md
+```
 
-## 3. Environment Variables (Project Settings -> Environment Variables)
-| Nama | Isi |
-|---|---|
-| FONNTE_TOKEN | token dari Fonnte |
-| WA_TARGET | nomor tujuan, format 628xxxxxxxxxx (tanpa + dan tanpa 0 di depan) |
+## Cara mengubah isi
+Buka `api/profile.js`, lalu ubah nama, deskripsi, skill (angka `level` 0-100), proyek, dan kontak.
 
-Setelah mengisi, klik **Redeploy**.
+### Mengganti foto profil
+1. Salin foto kamu ke `public/assets/`, misalnya `profile.jpg` (disarankan persegi 1:1).
+2. Di `api/profile.js`, ubah `photo: "/assets/profile.svg"` menjadi `photo: "/assets/profile.jpg"`.
 
-## Catatan
-- Batas ukuran file 4 MB (batas Vercel untuk fungsi serverless).
-- Token hanya ada di server, tidak terlihat pengunjung.
+## Menjalankan lokal
+```bash
+npm i -g vercel
+vercel dev
+```
+Buka http://localhost:3000. Jangan buka `index.html` langsung, karena data dimuat dari `/api`.
+
+## Deploy ke Vercel
+1. Upload folder ini ke GitHub.
+2. Di [vercel.com](https://vercel.com), pilih **Add New > Project**, lalu impor repo.
+3. Framework Preset: **Other**. Klik **Deploy**. Folder `public` dan `api` terdeteksi otomatis.
+
+## (Opsional) Form kontak masuk ke Telegram
+1. Buat bot lewat @BotFather dan ambil token-nya. Cari chat ID kamu lewat @userinfobot.
+2. Di Vercel: **Settings > Environment Variables**, tambahkan `TELEGRAM_BOT_TOKEN` dan `TELEGRAM_CHAT_ID`.
+3. Redeploy. Tanpa variabel ini, pesan hanya tercatat di Vercel Logs.
+
+## Lisensi
+Bebas dipakai dan dimodifikasi.

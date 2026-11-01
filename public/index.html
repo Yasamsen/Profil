@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portofolio</title>
+  <meta name="description" content="Website portofolio pribadi">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="loader" aria-live="polite"><div class="bar"><i></i></div><p>Menyiapkan portofolio</p></div>
+
+  <header class="nav">
+    <a class="logo" href="#home" id="logo">Portofolio</a>
+    <button id="burger" aria-label="Buka menu" aria-expanded="false"><span></span><span></span></button>
+    <nav id="menu">
+      <a href="#about">Tentang</a><a href="#skills">Keahlian</a><a href="#projects">Proyek</a><a href="#contact">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero wrap">
+      <div class="hero-text">
+        <p class="hello reveal">Halo, saya</p>
+        <h1 id="name" class="reveal"></h1>
+        <p class="role reveal"><span id="typed"></span><b class="caret"></b></p>
+        <p id="tagline" class="lead reveal"></p>
+        <div class="cta reveal">
+          <a class="btn primary" href="#contact">Hubungi saya</a>
+          <a class="btn" href="#projects">Lihat proyek</a>
+        </div>
+      </div>
+      <div class="photo reveal"><img id="photo" alt="Foto profil" width="400" height="400"></div>
+    </section>
+
+    <section id="about" class="wrap sec">
+      <h2 class="reveal">Tentang saya</h2>
+      <div id="about-text" class="about reveal"></div>
+    </section>
+
+    <section id="skills" class="wrap sec">
+      <h2 class="reveal">Keahlian</h2>
+      <div id="skill-list" class="skills"></div>
+    </section>
+
+    <section id="projects" class="wrap sec">
+      <h2 class="reveal">Proyek</h2>
+      <div id="project-list" class="projects"></div>
+    </section>
+
+    <section id="contact" class="wrap sec">
+      <h2 class="reveal">Kontak</h2>
+      <div class="contact-grid">
+        <div id="socials" class="socials reveal"></div>
+        <form id="form" class="form reveal" novalidate>
+          <label>Nama<input name="name" required autocomplete="name"></label>
+          <label>Email<input name="email" type="email" required autocomplete="email"></label>
+          <label>Pesan<textarea name="message" rows="4" required></textarea></label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn primary" type="submit">Kirim pesan</button>
+          <p id="status" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot"><span id="year"></span> <span id="foot-name"></span>. Semua hak dilindungi.</footer>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

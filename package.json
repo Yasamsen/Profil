@@ -1,9 +1,8 @@
 {
-  "name": "wa-kirim",
+  "name": "portfolio-website",
   "version": "1.0.0",
+  "description": "Website portofolio pribadi (static frontend + Vercel serverless backend)",
   "private": true,
-  "engines": { "node": ">=18" },
-  "dependencies": {
-    "formidable": "3.5.1"
-  }
+  "scripts": { "dev": "vercel dev" },
+  "engines": { "node": ">=18" }
 }
